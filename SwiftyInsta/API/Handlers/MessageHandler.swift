@@ -11,8 +11,8 @@ import Foundation
 
 public final class MessageHandler: Handler {
     /// Get the user's inbox.
-    public func inbox(completionHandler: @escaping (Result<Status, Error>) -> ()) {
-        requests.request(Status.self,
+    public func inbox(completionHandler: @escaping (Result<Raw, Error>) -> ()) {
+        requests.request(Raw.self,
                          method: .get,
                       endpoint: Endpoint.Direct.inbox,
                       headers: [:],

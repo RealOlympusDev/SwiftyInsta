@@ -33,3 +33,25 @@ public struct Status: Codable, StatusEnforceable {
         }
     }
 }
+
+/// A basic `struct` conforming to `StatusEnforceable`.
+public struct Raw: Codable, ParsedResponse {
+    
+    public var rawResponse: DynamicResponse
+    
+    public init?(rawResponse: DynamicResponse) {
+        guard rawResponse != .none else { return nil }
+        self.rawResponse = rawResponse
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        self.rawResponse = try DynamicResponse(data: container.decode(Data.self))
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(rawResponse.data())
+    }
+
+}
