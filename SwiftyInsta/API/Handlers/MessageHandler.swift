@@ -12,8 +12,8 @@ import Foundation
 public final class MessageHandler: Handler {
     /// Get the user's inbox.
     public func inbox(updateHandler: PaginationUpdateHandler<Thread, AnyPaginatedResponse>?,
-                      completionHandler: @escaping (Result<Thread, Error>) -> Void) {
-        requests.request(Thread.self,
+                      completionHandler: @escaping (Result<[Thread], Error>) -> Void) {
+        requests.request([Thread].self,
                          method: .get,
                       endpoint: Endpoint.Direct.inbox,
                       completion: completionHandler)
