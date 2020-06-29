@@ -11,15 +11,11 @@ import Foundation
 
 public final class MessageHandler: Handler {
     /// Get the user's inbox.
-    public func inbox(with paginationParameters: PaginationParameters,
-                      updateHandler: PaginationUpdateHandler<Thread, AnyPaginatedResponse>?,
-                      completionHandler: @escaping PaginationCompletionHandler<Thread>) {
-        pages.request(Thread.self,
-                      page: AnyPaginatedResponse.self,
-                      with: paginationParameters,
-                      endpoint: { Endpoint.Direct.inbox },
-                      splice: { $0.rawResponse.inbox.threads.array?.compactMap(Thread.init) ?? [] },
-                      update: updateHandler,
+    public func inbox(updateHandler: PaginationUpdateHandler<Thread, AnyPaginatedResponse>?,
+                      completionHandler: @escaping (Result<Thread, Error>) -> Void) {
+        requests.request(Thread.self,
+                         method: .get,
+                      endpoint: Endpoint.Direct.inbox,
                       completion: completionHandler)
     }
 
