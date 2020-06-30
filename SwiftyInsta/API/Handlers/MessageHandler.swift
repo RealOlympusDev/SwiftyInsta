@@ -13,10 +13,9 @@ public final class MessageHandler: Handler {
     /// Get the user's inbox.
     public func inbox(completionHandler: @escaping (Result<Raw, Error>) -> ()) {
         requests.request(Raw.self,
-                         method: .get,
-                      endpoint: Endpoint.Direct.inbox,
-                      headers: [:],
-                      completion: completionHandler)
+                         method: .post,
+                         endpoint: Endpoint.Direct.inbox,
+                         completion: completionHandler)
     }
 
     /// Send message to user(s) in thred.
