@@ -214,7 +214,12 @@ class HTTPHelper {
             handler.settings.session.dataTask(with: request) { data, response, error in
                 handler.settings.queues.working.async {
                     switch error {
-                    case let error?: completionHandler(.failure(error))
+                    case let error?:
+                        print(method)
+                        print(response)
+                        print(headers)
+                        print(body)
+                        completionHandler(.failure(error))
                     default: completionHandler(.success((data, response as? HTTPURLResponse)))
                     }
                 }
